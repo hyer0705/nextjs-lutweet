@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import Input from "../../components/input";
+import Btn from "../../components/button";
 
 export interface ICreateAccountForm {
   name: string;
@@ -86,9 +87,12 @@ export default function CreateAccountPage() {
             },
           })}
         />
-        <button>Sign Up</button>
-        <span>
-          Already have any account? <Link href="/log-in">Sign In</Link>
+        <Btn text="Sign Up" />
+        <span className="text-center">
+          Already have any account?{" "}
+          <Link className="font-semibold" href="/log-in">
+            Sign In
+          </Link>
         </span>
       </form>
     </div>
