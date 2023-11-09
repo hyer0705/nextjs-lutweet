@@ -54,6 +54,7 @@ export default function CreateAccountPage() {
           id="name"
           placeholder="ex) Lucy"
           labelName="Name"
+          errorMsg={errors.name?.message}
           register={register("name", {
             required: "이름을 입력해주세요.",
             minLength: { value: 2, message: "이름은 2글자 이상이어야 합니다." },
@@ -63,6 +64,7 @@ export default function CreateAccountPage() {
           id="email"
           labelName="Email"
           placeholder="ex) user@someemail.com"
+          errorMsg={errors.email?.message}
           register={register("email", {
             required: "이메일을 입력해주세요.",
             pattern: {
@@ -75,6 +77,7 @@ export default function CreateAccountPage() {
           id="phone"
           labelName="Phone"
           placeholder="ex) 01012345678"
+          errorMsg={errors.phone?.message}
           register={register("phone", {
             required: "전화번호 입력해주세요.",
             minLength: {
