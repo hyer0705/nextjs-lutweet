@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-prisma-typescript-tailwind-blueprint",
+  "name": "nextjs-lutweet",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -28,5 +28,8 @@
   },
   "license": "ISC",
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@svgr/webpack": "^8.1.0"
+  }
 }
