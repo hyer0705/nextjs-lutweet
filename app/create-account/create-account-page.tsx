@@ -29,6 +29,10 @@ export default function CreateAccountPage() {
   const methods = useForm<ICreateAccountForm>();
 
   const onValid = async (validForm: ICreateAccountForm) => {
+    /**
+     * To Do
+     * custom hook 만들어서 코드 정리하기
+     */
     const res = await fetch(`/api/users/create-account`, {
       method: "POST",
       cache: "no-cache",
@@ -46,7 +50,7 @@ export default function CreateAccountPage() {
     if (resData.ok) {
       router.push("/log-in");
     }
-  }, [resData]);
+  }, [resData, router]);
 
   return (
     <div className="">

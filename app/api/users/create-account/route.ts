@@ -16,9 +16,15 @@ export async function POST(request: Request) {
       },
     });
 
-    return Response.json({ ok: true });
+    if (!user) return Response.json({ ok: false }, { status: 401 });
+
+    return Response.json({ ok: true }, { status: 200 });
   } catch (error) {
     console.log(error);
+    /**
+     * To Do
+     * error 난 경우 status 어떻게 할지
+     */
     return Response.json({ ok: false, error });
   }
 }
