@@ -1,3 +1,5 @@
+import LogInPage from "./log-in-page";
+
 export default function Page() {
-  return <h1>Log in component~~~</h1>;
+  return <LogInPage />;
 }
