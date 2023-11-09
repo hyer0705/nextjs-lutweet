@@ -1,3 +1,5 @@
+import CreateAccountPage from "./create-account-page";
+
 export default function Page() {
-  return <h1>Create Account component~</h1>;
+  return <CreateAccountPage />;
 }
