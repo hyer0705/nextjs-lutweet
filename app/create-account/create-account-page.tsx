@@ -4,19 +4,49 @@ import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../components/input";
 import Btn from "../../components/button";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
+/**
+ * To Do
+ * interface 하나의 파일에 모아두기
+ */
 export interface ICreateAccountForm {
   name: string;
   email?: string;
   phone?: string;
 }
 
+interface IResponseData {
+  ok: boolean;
+  [key: string]: any;
+}
+
 export default function CreateAccountPage() {
+  const router = useRouter();
+
+  const [resData, setResData] = useState<IResponseData>();
   const methods = useForm<ICreateAccountForm>();
 
-  const onValid = (validForm: ICreateAccountForm) => {
-    console.log(validForm);
+  const onValid = async (validForm: ICreateAccountForm) => {
+    const res = await fetch(`/api/users/create-account`, {
+      method: "POST",
+      cache: "no-cache",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validForm),
+    }).then((resp) => resp.json());
+
+    setResData(res);
   };
+
+  useEffect(() => {
+    if (!resData) return;
+    if (resData.ok) {
+      router.push("/log-in");
+    }
+  }, [resData]);
 
   return (
     <div className="">
