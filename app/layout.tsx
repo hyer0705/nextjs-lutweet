@@ -16,9 +16,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-gray-900">
         <SWRProvider>
-          <main className="max-w-xl m-auto my-20 px-6 border border-white">
-            {children}
-          </main>
+          <main className="max-w-xl m-auto my-20 px-6">{children}</main>
         </SWRProvider>
       </body>
     </html>
