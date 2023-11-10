@@ -9,3 +9,9 @@ export interface IResponseUserData extends IResponseData {
     email: string;
   };
 }
+
+export interface IResponseWriteData extends IResponseData {
+  tweet: {
+    id: number;
+  };
+}
