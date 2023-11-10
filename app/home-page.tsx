@@ -26,9 +26,8 @@ export default function HomePage() {
 
   return (
     <div className="text-white">
-      <div className="flex items-center justify-between">
-        <Logo className="w-28 h-14" />
-        <div className="w-10 h-10 bg-gray-500 rounded-full"></div>
+      <div className="flex items-center justify-center">
+        <Logo className="w-48 h-24" />
       </div>
       {isLoading ? (
         <h1 className="text-white text-3xl">Loading...</h1>
