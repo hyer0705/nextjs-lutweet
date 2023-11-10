@@ -6,6 +6,7 @@ import { useRequestApi } from "../hooks/useRequestApi";
 import { IResponseUserData } from "../types/Response";
 import Logo from "../assets/Lutweet.svg";
 import TweetPost from "../components/tweet-post";
+import TweetProfile from "../components/tweet-profile";
 
 export default function HomePage() {
   const router = useRouter();
@@ -34,7 +35,10 @@ export default function HomePage() {
       ) : (
         <div className="mt-4 py-2 px-4 flex flex-col space-y-3 bg-gray-800 rounded-md">
           {Array.from({ length: 10 }, (x) => 0).map((_, i) => (
-            <TweetPost key={i} {...data?.user} tweetId={i} />
+            <div key={i} className="w-full p-3 bg-gray-900 rounded-md">
+              <TweetProfile {...data?.user} />
+              <TweetPost tweetId={i} />
+            </div>
           ))}
         </div>
       )}

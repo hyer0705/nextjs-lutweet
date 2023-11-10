@@ -2,24 +2,9 @@
 
 import Link from "next/link";
 
-interface ITweetPostProps {
-  tweetId?: number;
-  name?: string;
-  email?: string;
-}
-
-export default function TweetPost({ tweetId, name, email }: ITweetPostProps) {
+export default function TweetPost({ tweetId }: { tweetId?: number }) {
   return (
-    <div className="w-full p-3 bg-gray-900 rounded-md">
-      <div className="flex items-center space-x-2">
-        <div className="w-10 h-10 bg-gray-500 rounded-full"></div>
-        <div className="flex-1">
-          <div className="flex flex-col">
-            <span className="text-base font-semibold">{name}</span>
-            <span className="text-sm text-gray-400">{email}</span>
-          </div>
-        </div>
-      </div>
+    <>
       <Link href={`/tweet/${tweetId}`}>
         <div className="pl-12">
           <p>
@@ -55,6 +40,6 @@ export default function TweetPost({ tweetId, name, email }: ITweetPostProps) {
         </svg>
         <span>0</span>
       </div>
-    </div>
+    </>
   );
 }
