@@ -33,9 +33,12 @@ export default function HomePage() {
       {isLoading ? (
         <h1 className="text-white text-3xl">Loading...</h1>
       ) : (
-        <div className="mt-4 py-2 px-4 flex flex-col space-y-3 bg-gray-800 rounded-md">
+        <div className="mt-4 p-4 flex flex-col space-y-4 bg-gray-800 rounded-md">
           {Array.from({ length: 10 }, (x) => 0).map((_, i) => (
-            <div key={i} className="w-full p-3 bg-gray-900 rounded-md">
+            <div
+              key={i}
+              className="w-full p-3 flex flex-col space-y-4 bg-gray-900 rounded-md"
+            >
               <TweetProfile {...data?.user} />
               <TweetPost tweetId={i} />
             </div>
