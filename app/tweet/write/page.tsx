@@ -1,3 +1,5 @@
+import WritePage from "./write-page";
+
 export default function Page() {
-  return <h1>Tweet Write component~~~</h1>;
+  return <WritePage />;
 }
