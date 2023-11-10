@@ -19,7 +19,8 @@ export async function POST(request: Request) {
     const response = new Response();
     const session = await getSession(request, response);
     session.user = {
-      email,
+      email: user.email || "",
+      name: user.name,
     };
     await session.save();
 
