@@ -10,8 +10,23 @@ export interface IResponseUserData extends IResponseData {
   };
 }
 
-export interface IResponseWriteData extends IResponseData {
+export interface IResponseWriteTweet extends IResponseData {
   tweet: {
     id: number;
+  };
+}
+
+export interface IResponseTweetDetail extends IResponseData {
+  tweetDetail: {
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    user: {
+      name: string;
+      email: string;
+    };
+    _count: {
+      hearts: number;
+    };
   };
 }

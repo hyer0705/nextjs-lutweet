@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import Header from "../../../components/header";
 import { useRequestApi } from "../../../hooks/useRequestApi";
-import { IResponseWriteData } from "../../../types/Response";
+import { IResponseWriteTweet } from "../../../types/Response";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -13,7 +13,7 @@ interface IWriteForm {
 
 export default function WritePage() {
   const router = useRouter();
-  const { data, isLoading, handleApi } = useRequestApi<IResponseWriteData>({
+  const { data, isLoading, handleApi } = useRequestApi<IResponseWriteTweet>({
     url: "/api/tweets/write",
     method: "POST",
   });
