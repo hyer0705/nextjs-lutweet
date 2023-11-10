@@ -4,53 +4,33 @@ import Link from "next/link";
 import { useForm, FormProvider } from "react-hook-form";
 import Input from "../../components/input";
 import Btn from "../../components/button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
-/**
- * To Do
- * interface 하나의 파일에 모아두기
- */
-export interface ICreateAccountForm {
-  name: string;
-  email?: string;
-  phone?: string;
-}
-
-interface IResponseData {
-  ok: boolean;
-  [key: string]: any;
-}
+import { useRequestApi } from "../../hooks/useRequestApi";
+import { ICreateAccountForm } from "../../types/Form";
+import { IResponseData } from "../../types/Response";
 
 export default function CreateAccountPage() {
   const router = useRouter();
-
-  const [resData, setResData] = useState<IResponseData>();
   const methods = useForm<ICreateAccountForm>();
 
-  const onValid = async (validForm: ICreateAccountForm) => {
-    /**
-     * To Do
-     * custom hook 만들어서 코드 정리하기
-     */
-    const res = await fetch(`/api/users/create-account`, {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(validForm),
-    }).then((resp) => resp.json());
+  const { handleApi, data, error, isLoading } = useRequestApi<IResponseData>({
+    url: "/api/users/create-account",
+    method: "POST",
+  });
 
-    setResData(res);
+  const onValid = async (validForm: ICreateAccountForm) => {
+    if (isLoading) return;
+
+    handleApi(validForm);
   };
 
   useEffect(() => {
-    if (!resData) return;
-    if (resData.ok) {
+    if (!data) return;
+    if (data.ok) {
       router.push("/log-in");
     }
-  }, [resData, router]);
+  }, [data, router]);
 
   return (
     <div className="">
@@ -90,7 +70,7 @@ export default function CreateAccountPage() {
             placeholder="ex) user@someemail.com"
           />
           <Input id="phone" labelName="Phone" placeholder="ex) 01012345678" />
-          <Btn text="Sign Up" />
+          <Btn text={isLoading ? "Loading..." : "Sign Up"} />
           <span className="text-center">
             Already have any account?{" "}
             <Link className="font-semibold" href="/log-in">

@@ -1,43 +1,36 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import Logo from "../../assets/Lutweet.svg";
 import Input from "../../components/input";
 import Btn from "../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-export interface ILogInForm {
-  email: string;
-}
+import { ILogInForm } from "../../types/Form";
+import { useRequestApi } from "../../hooks/useRequestApi";
+import { IResponseData } from "../../types/Response";
 
 export default function LogInPage() {
   const router = useRouter();
-
-  const [resData, setResData] = useState<{ ok: boolean; [key: string]: any }>();
   const methods = useForm<ILogInForm>();
+
+  const { data, isLoading, error, handleApi } = useRequestApi<IResponseData>({
+    url: "/api/users/log-in",
+    method: "POST",
+  });
+
   const onValid = async (validForm: ILogInForm) => {
-    console.log(validForm);
-
-    const res = await fetch("/api/users/log-in", {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(validForm),
-    }).then((resp) => resp.json());
-
-    setResData(res);
+    if (isLoading) return;
+    handleApi(validForm);
   };
 
   useEffect(() => {
-    if (!resData) return;
-    if (resData.ok) {
+    if (!data) return;
+    if (data.ok) {
       router.push("/");
     }
-  }, [resData]);
+  }, [data, router]);
 
   return (
     <div>
@@ -60,7 +53,7 @@ export default function LogInPage() {
               labelName="Email"
               placeholder="ex) username@email.com"
             />
-            <Btn text="Log in" />
+            <Btn text={isLoading ? "Loading..." : "Log In"} />
           </form>
         </FormProvider>
       </div>
