@@ -26,7 +26,6 @@ export default function LogInPage() {
   };
 
   useEffect(() => {
-    console.log(!isLoading && data?.ok);
     if (!isLoading && data && data?.ok) {
       router.push("/");
     }

@@ -18,8 +18,8 @@ export default function HomePage() {
   const router = useRouter();
 
   const { data, isLoading } = useSWR<IResponseTweets>("/api/tweets");
-  // const { data: userData, isLoading: isUserDataLoading } =
-  //   useSWR<IResponseUserData>("/api/users/check");
+  const { data: userData, isLoading: isUserDataLoading } =
+    useSWR<IResponseUserData>("/api/users/check");
   const {
     data: logOutData,
     handleApi,
@@ -45,7 +45,7 @@ export default function HomePage() {
         <Logo className="w-48 h-24" />
 
         <div className="flex flex-col justify-center items-center">
-          {/* <span>Hi! {isUserDataLoading ? null : userData?.user?.name}</span> */}
+          <span>Hi! {isUserDataLoading ? null : userData?.user?.name}</span>
           <button
             onClick={onLogoutClick}
             className="py-2 px-4 text-sm text-gray-600 font-semibold cursor-pointer"

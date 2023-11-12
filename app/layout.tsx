@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Lutweet",
   description: "Welcome to Lutweet",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/app/favicon.ico",
   },
 };
 
