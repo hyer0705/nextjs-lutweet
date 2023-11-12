@@ -15,7 +15,6 @@ export default function WritePage() {
   const router = useRouter();
   const { data, isLoading, handleApi } = useRequestApi<IResponseWriteTweet>({
     url: "/api/tweets/write",
-    method: "POST",
   });
 
   const {

@@ -6,7 +6,7 @@ export const SWRProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <SWRConfig
       value={{
-        fetcher: (url: string) =>
+        fetcher: async (url: string) =>
           fetch(url).then((response) => response.json()),
       }}
     >

@@ -16,7 +16,6 @@ export default function CreateAccountPage() {
 
   const { handleApi, data, error, isLoading } = useRequestApi<IResponseData>({
     url: "/api/users/create-account",
-    method: "POST",
   });
 
   const onValid = async (validForm: ICreateAccountForm) => {

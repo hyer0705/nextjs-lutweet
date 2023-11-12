@@ -2,11 +2,12 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/session";
 
 export async function GET(request: Request, response: Response) {
+  console.log("===== /api/users/check");
   try {
     const session = await getSession(request, response);
     const user = session.user;
 
-    if (!user) return NextResponse.json({ ok: false }, { status: 401 });
+    if (!user?.email) return NextResponse.json({ ok: false }, { status: 401 });
 
     return NextResponse.json({ ok: true, user }, { status: 200 });
   } catch (error) {
@@ -15,6 +16,4 @@ export async function GET(request: Request, response: Response) {
       status: 500,
     });
   }
-
-  return Response.json({ ok: true });
 }
