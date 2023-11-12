@@ -12,8 +12,7 @@ export async function POST(request: Request) {
       },
     });
 
-    /**ToDo status 맞는지 확인 */
-    if (!user) return Response.json({ ok: Boolean, status: 401 });
+    if (!user?.email) return Response.json({ ok: false, status: 401 });
 
     // 2. save session
     const response = new Response();

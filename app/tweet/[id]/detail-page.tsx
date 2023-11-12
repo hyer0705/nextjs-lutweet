@@ -10,7 +10,6 @@ import { useRequestApi } from "../../../hooks/useRequestApi";
 export default function DetailPage({ id }: { id: string }) {
   const { handleApi } = useRequestApi({
     url: `/api/tweets/${id}/heart`,
-    method: "POST",
   });
 
   const { data, isLoading, mutate } = useSWR<IResponseTweetDetail>(

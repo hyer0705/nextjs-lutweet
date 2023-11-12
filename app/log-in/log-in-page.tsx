@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import Logo from "../../assets/Lutweet.svg";
 import Input from "../../components/input";
@@ -17,20 +17,19 @@ export default function LogInPage() {
 
   const { data, isLoading, error, handleApi } = useRequestApi<IResponseData>({
     url: "/api/users/log-in",
-    method: "POST",
   });
 
   const onValid = async (validForm: ILogInForm) => {
-    if (isLoading) return;
-    handleApi(validForm);
+    if (!isLoading) {
+      handleApi(validForm);
+    }
   };
 
   useEffect(() => {
-    if (!data) return;
-    if (data.ok) {
+    if (!isLoading && data?.ok) {
       router.push("/");
     }
-  }, [data, router]);
+  }, [isLoading, data, router]);
 
   return (
     <div>
