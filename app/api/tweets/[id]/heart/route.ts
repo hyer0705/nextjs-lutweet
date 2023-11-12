@@ -6,8 +6,6 @@ export async function POST(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  console.log("===== /api/tweets/[id]/heart");
-
   try {
     // get user
     const response = new Response();

@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/session";
 
 export async function GET(request: Request, response: Response) {
-  console.log("===== /api/users/check");
   try {
     const session = await getSession(request, response);
     const user = session.user;

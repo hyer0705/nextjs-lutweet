@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getSession } from "../../../../lib/session";
 
 export async function POST(request: Request) {
-  console.log("===== /api/users/log-out");
   try {
     const response = new Response();
     const session = await getSession(request, response);
