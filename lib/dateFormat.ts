@@ -1,14 +1,22 @@
 export default function dateFormat(date: Date) {
-  console.log("===== dateFormat ");
-  console.log(date, typeof date);
+  const MONTH_LIST = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
   const dateObj = new Date(date);
-  console.log(
-    dateObj.getDate(),
-    dateObj.getMonth(),
-    dateObj.getFullYear(),
-    dateObj.getHours(),
-    dateObj.getMinutes()
-  );
 
-  return null;
+  // HH:mm MON Date ,YYYY
+  return `${dateObj.getHours() + 1}:${dateObj.getMinutes()} ${
+    MONTH_LIST[dateObj.getMonth()]
+  } ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
 }
