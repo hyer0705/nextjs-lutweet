@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import Logo from "../../assets/Lutweet.svg";
 import Input from "../../components/input";
@@ -15,7 +15,7 @@ export default function LogInPage() {
   const router = useRouter();
   const methods = useForm<ILogInForm>();
 
-  const { data, isLoading, error, handleApi } = useRequestApi<IResponseData>({
+  const { data, isLoading, handleApi } = useRequestApi<IResponseData>({
     url: "/api/users/log-in",
   });
 

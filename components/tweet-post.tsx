@@ -12,12 +12,7 @@ interface ITweetPostProps {
   };
 }
 
-export default function TweetPost({
-  id,
-  content,
-  updatedAt,
-  _count,
-}: ITweetPostProps) {
+export default function TweetPost({ id, content, _count }: ITweetPostProps) {
   return (
     <>
       <Link href={`/tweet/${id}`}>

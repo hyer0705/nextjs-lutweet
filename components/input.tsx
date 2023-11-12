@@ -1,8 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import { ILogInForm } from "../app/log-in/log-in-page";
-import { ICreateAccountForm } from "../app/create-account/create-account-page";
+import { ICreateAccountForm, ILogInForm } from "../types/Form";
 
 interface IInputProps {
   id: "name" | "email" | "phone";
