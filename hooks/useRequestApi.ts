@@ -22,7 +22,7 @@ export const useRequestApi = <T>({
 
         setData(resp);
       }
-      if (method === "POST" && data) {
+      if (method === "POST") {
         const resp = await fetch(url, {
           method: "POST",
           cache: "no-cache",
