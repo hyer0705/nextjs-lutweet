@@ -14,7 +14,7 @@ export default function CreateAccountPage() {
   const router = useRouter();
   const methods = useForm<ICreateAccountForm>();
 
-  const { handleApi, data, error, isLoading } = useRequestApi<IResponseData>({
+  const { handleApi, data, isLoading } = useRequestApi<IResponseData>({
     url: "/api/users/create-account",
   });
 
