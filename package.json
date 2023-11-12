@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "db-sync": "npx prisma migrate dev",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "postinstall": "prisma generate"
   },
   "main": "pages/index.tsx",
   "dependencies": {
