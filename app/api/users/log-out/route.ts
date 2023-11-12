@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const session = await getSession(request, response);
     await session.destroy();
 
-    return Response.json(
+    return NextResponse.json(
       { ok: true },
       { status: 200, headers: response.headers }
     );

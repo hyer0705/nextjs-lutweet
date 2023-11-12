@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
 import { getSession } from "../../../../lib/session";
 
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
       },
     });
 
-    if (!user?.email) return Response.json({ ok: false, status: 401 });
+    if (!user?.email) return NextResponse.json({ ok: false, status: 401 });
 
     // 2. save session
     const response = new Response();
@@ -23,12 +24,12 @@ export async function POST(request: Request) {
     };
     await session.save();
 
-    return Response.json(
+    return NextResponse.json(
       { ok: true },
       { status: 200, headers: response.headers }
     );
   } catch (error) {
     console.log(error);
-    return Response.json({ ok: false });
+    return NextResponse.json({ ok: false }, { status: 500 });
   }
 }

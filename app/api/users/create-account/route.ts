@@ -1,3 +1,4 @@
+import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
 
 export async function POST(request: Request) {
@@ -16,15 +17,11 @@ export async function POST(request: Request) {
       },
     });
 
-    if (!user) return Response.json({ ok: false }, { status: 401 });
+    if (!user) return NextResponse.json({ ok: false }, { status: 401 });
 
-    return Response.json({ ok: true }, { status: 200 });
+    return NextResponse.json({ ok: true }, { status: 200 });
   } catch (error) {
     console.log(error);
-    /**
-     * To Do
-     * error 난 경우 status 어떻게 할지
-     */
-    return Response.json({ ok: false, error });
+    return NextResponse.json({ ok: false, error }, { status: 500 });
   }
 }
