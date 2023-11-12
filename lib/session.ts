@@ -2,7 +2,7 @@ import {
   IronSessionOptions,
   getIronSession,
   IronSessionData,
-} from "iron-session";
+} from "iron-session/edge";
 
 export const sessionOptions: IronSessionOptions = {
   password: "j4PbGWknF8sBcwQgV9MZXTRLHDphUryCJEfm",

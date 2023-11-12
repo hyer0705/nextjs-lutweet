@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import useSWR from "swr";
-import { useRequestApi } from "../hooks/useRequestApi";
 
 interface ITweetPostProps {
   id: number;
