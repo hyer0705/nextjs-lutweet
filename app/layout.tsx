@@ -3,8 +3,11 @@ import "../global.css";
 import { SWRProvider } from "./swr-provider";
 
 export const metadata: Metadata = {
-  title: "Home | Lutweet",
-  description: "Welcome to Next.js",
+  title: "Lutweet",
+  description: "Welcome to Lutweet",
+  icons: {
+    icon: "/app/favicon.ico",
+  },
 };
 
 export default function RootLayout({

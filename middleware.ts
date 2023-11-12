@@ -10,7 +10,8 @@ export async function middleware(request: NextRequest) {
   ) {
     const session = await getSession(request, res);
     const { user } = session;
-    if (!user?.email) {
+    // if (!user?.email) {
+    if (!user) {
       return NextResponse.redirect(new URL("/create-account", request.url));
     }
   }

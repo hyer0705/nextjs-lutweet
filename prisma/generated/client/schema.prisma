@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./dev.db"
+// }
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String  
+  email       String?   @unique
+  phone       String?   @unique
+  avatar      String?
+  tweets      Tweet[]
+  hearts      Heart[]
+  createAt    DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  // tokens      Token[]
+}
+
+// model Token {
+//   id          Int       @id @default(autoincrement())
+//   payload     String    @unique
+//   user        User      @relation(fields: [userId], references: [id])
+//   userId      Int
+//   createdAt   DateTime  @default(now())
+//   updatedAt   DateTime  @updatedAt
+// }
+
+model Tweet {
+  id          Int       @id @default(autoincrement())
+  content     String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  hearts      Heart[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model Heart {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int
+  tweet       Tweet     @relation(fields: [tweetId], references: [id])
+  tweetId     Int
+  creatdAt    DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([tweetId])
+}

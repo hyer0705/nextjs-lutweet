@@ -3,19 +3,23 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "./generated/client"
 }
 
+// datasource db {
+//   provider = "sqlite"
+//   url      = "file:./dev.db"
+// }
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
   id          Int       @id @default(autoincrement())
   name        String  
   email       String?   @unique
-  phone       String?   @unique
+  phone       String?
   avatar      String?
   tweets      Tweet[]
   hearts      Heart[]
@@ -41,6 +45,8 @@ model Tweet {
   hearts      Heart[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
 }
 
 model Heart {
@@ -51,4 +57,7 @@ model Heart {
   tweetId     Int
   creatdAt    DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([tweetId])
 }
