@@ -46,6 +46,8 @@ model Tweet {
   hearts      Heart[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
 }
 
 model Heart {
@@ -56,4 +58,7 @@ model Heart {
   tweetId     Int
   creatdAt    DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([tweetId])
 }
