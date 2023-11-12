@@ -19,7 +19,7 @@ declare module "iron-session" {
 }
 
 const getSession = async (req: Request, res: Response) => {
-  const session = getIronSession<IronSessionData>(req, res, sessionOptions);
+  const session = getIronSession(req, res, sessionOptions);
   return session;
 };
 
