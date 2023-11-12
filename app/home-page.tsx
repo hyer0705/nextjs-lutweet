@@ -8,22 +8,20 @@ import Logo from "../assets/Lutweet.svg";
 import TweetPost from "../components/tweet-post";
 import TweetProfile from "../components/tweet-profile";
 import Link from "next/link";
+import useSWR from "swr";
 
 export default function HomePage() {
   const router = useRouter();
 
-  const { data, handleApi, isLoading } = useRequestApi<IResponseUserData>({
-    url: "/api/users/check",
-    method: "GET",
-  });
+  const { data, isLoading } = useSWR<IResponseUserData>("/api/users/check");
 
   useEffect(() => {
-    handleApi();
+    console.log(data);
     if (!data) return;
     if (!data.ok) {
       router.push("/create-account");
     }
-  }, [router]);
+  }, [data, router]);
 
   return (
     <div className="text-white">
