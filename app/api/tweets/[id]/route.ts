@@ -1,13 +1,15 @@
 import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
+import { getSession } from "../../../../lib/session";
 
 export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
-  console.log("===== /api/tweets/[id]");
-  console.log(id);
   try {
+    const response = new Response();
+    const { user } = await getSession(request, response);
+
     // select tweet
     const tweet = await db.tweet.findUnique({
       where: {
@@ -26,9 +28,25 @@ export async function GET(
       },
     });
 
-    console.log(tweet);
+    // select heart
+    const isLiked = Boolean(
+      await db.heart.findFirst({
+        where: {
+          tweetId: +id,
+          user: {
+            email: user?.email,
+          },
+        },
+        select: {
+          id: true,
+        },
+      })
+    );
 
-    return NextResponse.json({ ok: true, tweetDetail: tweet }, { status: 200 });
+    return NextResponse.json(
+      { ok: true, tweetDetail: tweet, isLiked },
+      { status: 200 }
+    );
   } catch (error) {
     console.log(error);
     return NextResponse.json({ ok: false }, { status: 500 });

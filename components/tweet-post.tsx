@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import useSWR from "swr";
+import { useRequestApi } from "../hooks/useRequestApi";
 
 interface ITweetPostProps {
   id: number;
@@ -21,7 +23,7 @@ export default function TweetPost({
   return (
     <>
       <Link href={`/tweet/${id}`}>
-        <div className="pl-12">
+        <div className="p-3 pl-12">
           <p>{content}</p>
         </div>
       </Link>

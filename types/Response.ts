@@ -30,6 +30,7 @@ export interface IResponseTweetDetail extends IResponseData {
       hearts: number;
     };
   };
+  isLiked: boolean;
 }
 
 export interface IResponseTweets extends IResponseData {
