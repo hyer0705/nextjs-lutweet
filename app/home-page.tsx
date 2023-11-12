@@ -37,7 +37,7 @@ export default function HomePage() {
           <div className="mt-4 p-4 flex flex-col space-y-4 bg-gray-800 rounded-md">
             {data?.tweets.map((tweet, i) => (
               <div
-                key={i}
+                key={tweet.id}
                 className="w-full p-3 flex flex-col space-y-4 bg-gray-900 rounded-md"
               >
                 <TweetProfile {...tweet.user} />
