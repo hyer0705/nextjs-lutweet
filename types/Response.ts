@@ -18,6 +18,7 @@ export interface IResponseWriteTweet extends IResponseData {
 
 export interface IResponseTweetDetail extends IResponseData {
   tweetDetail: {
+    id: number;
     content: string;
     createdAt: Date;
     updatedAt: Date;
@@ -29,4 +30,8 @@ export interface IResponseTweetDetail extends IResponseData {
       hearts: number;
     };
   };
+}
+
+export interface IResponseTweets extends IResponseData {
+  tweets: IResponseTweetDetail["tweetDetail"][];
 }

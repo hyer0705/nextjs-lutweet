@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useRequestApi } from "../hooks/useRequestApi";
-import { IResponseUserData } from "../types/Response";
+import { IResponseTweets, IResponseUserData } from "../types/Response";
 import Logo from "../assets/Lutweet.svg";
 import TweetPost from "../components/tweet-post";
 import TweetProfile from "../components/tweet-profile";
@@ -13,9 +13,11 @@ import useSWR from "swr";
 export default function HomePage() {
   const router = useRouter();
 
-  const { data, isLoading } = useSWR<IResponseUserData>("/api/users/check");
+  const { data, isLoading } = useSWR<IResponseTweets>("/api/tweets");
+  const {} = useSWR<IResponseUserData>("/api/users/check");
 
   useEffect(() => {
+    console.log("===== useEffect ");
     console.log(data);
     if (!data) return;
     if (!data.ok) {
@@ -33,13 +35,13 @@ export default function HomePage() {
       ) : (
         <div className="relative">
           <div className="mt-4 p-4 flex flex-col space-y-4 bg-gray-800 rounded-md">
-            {Array.from({ length: 10 }, (x) => 0).map((_, i) => (
+            {data?.tweets.map((tweet, i) => (
               <div
                 key={i}
                 className="w-full p-3 flex flex-col space-y-4 bg-gray-900 rounded-md"
               >
-                <TweetProfile {...data?.user} />
-                <TweetPost tweetId={i} />
+                <TweetProfile {...tweet.user} />
+                <TweetPost {...tweet} />
               </div>
             ))}
           </div>
