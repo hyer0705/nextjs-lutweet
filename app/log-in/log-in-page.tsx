@@ -26,10 +26,10 @@ export default function LogInPage() {
   };
 
   useEffect(() => {
-    if (!isLoading && data && data?.ok) {
+    if (data?.ok) {
       router.push("/");
     }
-  }, [isLoading, data, router]);
+  }, [data, router]);
 
   return (
     <div>
