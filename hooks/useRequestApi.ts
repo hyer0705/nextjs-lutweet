@@ -30,6 +30,7 @@ export const useRequestApi = <T = any>({
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
+      cache: "no-cache",
     })
       .then((res) =>
         res.json().catch((err) => {
