@@ -8,10 +8,6 @@ import dateFormat from "../../../lib/dateFormat";
 import { useRequestApi } from "../../../hooks/useRequestApi";
 
 export default function DetailPage({ id }: { id: string }) {
-  const { handleApi } = useRequestApi({
-    url: `/api/tweets/${id}/heart`,
-  });
-
   const { data, isLoading, mutate } = useSWR<IResponseTweetDetail>(
     id ? `/api/tweets/${id}` : null
   );
@@ -35,7 +31,6 @@ export default function DetailPage({ id }: { id: string }) {
       },
       { revalidate: false }
     );
-    handleApi();
   };
 
   return (
