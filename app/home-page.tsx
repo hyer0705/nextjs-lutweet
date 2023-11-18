@@ -20,15 +20,13 @@ export default function HomePage() {
   const { data, isLoading } = useSWR<IResponseTweets>("/api/tweets");
   const { data: userData, isLoading: isUserDataLoading } =
     useSWR<IResponseUserData>("/api/users/check");
-  const {
-    data: logOutData,
-    handleApi,
-    isLoading: isLogOutLoading,
-  } = useRequestApi<IResponseData>({ url: "/api/users/log-out" });
+
+  const [handleApi, { isLoading: isLogOutLoading, data: logOutData }] =
+    useRequestApi<IResponseData>({ url: "/api/users/log-out" });
 
   const onLogoutClick = async () => {
     if (isLogOutLoading) return;
-    await handleApi();
+    await handleApi(null);
   };
 
   useEffect(() => {

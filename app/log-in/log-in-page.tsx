@@ -15,7 +15,7 @@ export default function LogInPage() {
   const router = useRouter();
   const methods = useForm<ILogInForm>();
 
-  const { data, isLoading, handleApi } = useRequestApi<IResponseData>({
+  const [handleApi, { isLoading, data }] = useRequestApi<IResponseData>({
     url: "/api/users/log-in",
   });
 
