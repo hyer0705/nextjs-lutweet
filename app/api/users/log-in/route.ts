@@ -24,6 +24,8 @@ export async function POST(request: Request) {
     };
     await session.save();
 
+    console.log("===== /api/users/log-in POST API ", { user });
+
     return NextResponse.json(
       { ok: true },
       { status: 200, headers: response.headers }
