@@ -3,6 +3,8 @@ import { getSession } from "./lib/session";
 
 export async function middleware(request: NextRequest) {
   const res = NextResponse.next();
+  console.log("===== middleware");
+  console.log(request.nextUrl.pathname);
 
   if (
     request.nextUrl.pathname === "/" ||
