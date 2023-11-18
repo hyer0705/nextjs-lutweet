@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       },
     });
 
-    if (!user?.email) return NextResponse.json({ ok: false, status: 401 });
+    if (!user) return NextResponse.json({ ok: false, status: 401 });
 
     // 2. save session
     const response = new Response();
