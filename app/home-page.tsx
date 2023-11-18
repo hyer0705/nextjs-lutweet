@@ -18,8 +18,11 @@ export default function HomePage() {
   const router = useRouter();
 
   const { data, isLoading } = useSWR<IResponseTweets>("/api/tweets");
-  const { data: userData, isLoading: isUserDataLoading } =
-    useSWR<IResponseUserData>("/api/users/check");
+  const {
+    data: userData,
+    error,
+    isValidating,
+  } = useSWR<IResponseUserData>("/api/users/check");
 
   const [handleApi, { isLoading: isLogOutLoading, data: logOutData }] =
     useRequestApi<IResponseData>({ url: "/api/users/log-out" });
@@ -28,6 +31,12 @@ export default function HomePage() {
     if (isLogOutLoading) return;
     await handleApi(null);
   };
+
+  useEffect(() => {
+    if (!isValidating && error !== null && !userData.ok) {
+      router.replace("/create-account");
+    }
+  }, [router, error, isValidating, userData]);
 
   useEffect(() => {
     if (logOutData && logOutData.ok) {
@@ -43,7 +52,7 @@ export default function HomePage() {
         <Logo className="w-48 h-24" />
 
         <div className="flex flex-col justify-center items-center">
-          <span>Hi! {isUserDataLoading ? null : userData?.user?.name}</span>
+          <span>Hi! {userData?.user?.name}</span>
           <button
             onClick={onLogoutClick}
             className="py-2 px-4 text-sm text-gray-600 font-semibold cursor-pointer"
