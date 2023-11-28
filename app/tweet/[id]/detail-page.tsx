@@ -4,8 +4,7 @@ import TweetProfile from "../../../components/tweet-profile";
 import Header from "../../../components/header";
 import useSWR from "swr";
 import { IResponseTweetDetail } from "../../../types/Response";
-import dateFormat from "../../../lib/dateFormat";
-import { useRequestApi } from "../../../hooks/useRequestApi";
+import dateFormat from "../../../lib/date-format";
 
 export default function DetailPage({ id }: { id: string }) {
   const { data, isLoading, mutate } = useSWR<IResponseTweetDetail>(

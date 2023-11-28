@@ -2,7 +2,6 @@ import {
   // IronSessionOptions,
   SessionOptions,
   getIronSession,
-  IronSessionData,
 } from "iron-session";
 
 export const sessionOptions: SessionOptions = {

@@ -7,7 +7,7 @@ import Btn from "../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ILogInForm } from "../../types/Form";
-import useSession from "../../lib/useSession";
+import useSession from "../../lib/use-session";
 import { useEffect } from "react";
 
 export default function LogInPage() {

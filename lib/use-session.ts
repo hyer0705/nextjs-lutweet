@@ -31,6 +31,13 @@ function doLogout(url: string) {
   });
 }
 
+function getUser(url: string) {
+  console.log("===== getUser - url: ", url);
+  return fetchJson<SessionData>(url, {
+    cache: "no-cache",
+  });
+}
+
 export default function useSession() {
   const router = useRouter();
 
