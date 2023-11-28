@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import db from "../../../../../lib/db";
-import { getSession } from "../../../../../lib/session";
+import { cookies } from "next/headers";
+import { getIronSession } from "iron-session";
+import { SessionData, sessionOptions } from "../../../../../lib/session";
 
 export async function POST(
   request: Request,
@@ -8,8 +10,10 @@ export async function POST(
 ) {
   try {
     // get user
-    const response = new Response();
-    const { user } = await getSession(request, response);
+    const { user } = await getIronSession<SessionData>(
+      cookies(),
+      sessionOptions
+    );
 
     if (!user) return NextResponse.json({ ok: false }, { status: 401 });
 

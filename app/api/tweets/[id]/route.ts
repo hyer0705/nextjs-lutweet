@@ -1,14 +1,18 @@
 import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
-import { getSession } from "../../../../lib/session";
+import { cookies } from "next/headers";
+import { getIronSession } from "iron-session";
+import { SessionData, sessionOptions } from "../../../../lib/session";
 
 export async function GET(
   request: Request,
   { params: { id } }: { params: { id: string } }
 ) {
   try {
-    const response = new Response();
-    const { user } = await getSession(request, response);
+    const { user } = await getIronSession<SessionData>(
+      cookies(),
+      sessionOptions
+    );
 
     // select tweet
     const tweet = await db.tweet.findUnique({

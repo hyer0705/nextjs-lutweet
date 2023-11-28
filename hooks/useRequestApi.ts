@@ -2,30 +2,44 @@
 
 import { useState } from "react";
 
-export const useRequestApi = <T>({ url }: { url: string }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState<T>();
-  const [error, setError] = useState<any>();
+interface UseRequestApiState<T> {
+  isLoading: boolean;
+  data?: T;
+  error?: object;
+}
 
-  const handleApi = async (data?: any) => {
-    setIsLoading(true);
+type UseRequestApiResult<T> = [(data: any) => void, UseRequestApiState<T>];
 
-    try {
-      const resp = await fetch(url, {
-        method: "POST",
-        cache: "no-cache",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }).then((res) => res.json());
+export const useRequestApi = <T = any>({
+  url,
+}: {
+  url: string;
+}): UseRequestApiResult<T> => {
+  const [state, setState] = useState<UseRequestApiState<T>>({
+    isLoading: false,
+    data: undefined,
+    error: undefined,
+  });
 
-      setData(resp);
+  const handleApi = (data?: any) => {
+    setState((prev) => ({ ...prev, isLoading: true }));
 
-      setIsLoading(false);
-    } catch (error) {
-      setError(error);
-    }
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+      cache: "no-cache",
+    })
+      .then((res) =>
+        res.json().catch((err) => {
+          console.log(err);
+        })
+      )
+      .then((data) => setState((prev) => ({ ...prev, data, isLoading: false })))
+      .catch((error) => setState((prev) => ({ ...prev, error })))
+      .finally(() => setState((prev) => ({ ...prev, isLoading: false })));
   };
-  return { handleApi, data, error, isLoading };
+  return [handleApi, { ...state }];
 };

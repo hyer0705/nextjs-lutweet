@@ -7,7 +7,7 @@ export default function Header({ title }: { title: string }) {
 
   return (
     <div className="pb-8 flex items-center">
-      <span className="p-4 cursor-pointer" onClick={() => router.back()}>
+      <span className="p-4 cursor-pointer" onClick={() => router.push("/")}>
         <svg
           className="w-6 h-6"
           fill="none"

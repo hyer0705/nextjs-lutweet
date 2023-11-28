@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
-import { getSession } from "../../../../lib/session";
+import { getIronSession } from "iron-session";
+import { cookies } from "next/headers";
+import { SessionData, sessionOptions } from "../../../../lib/session";
 
 export async function POST(request: Request) {
   try {
@@ -13,20 +15,23 @@ export async function POST(request: Request) {
       },
     });
 
-    if (!user?.email) return NextResponse.json({ ok: false, status: 401 });
+    if (!user) return NextResponse.json({ ok: false, status: 401 });
 
     // 2. save session
-    const response = new Response();
-    const session = await getSession(request, response);
+    const session = await getIronSession<SessionData>(
+      cookies(),
+      sessionOptions
+    );
+    session.isLoggedIn = true;
     session.user = {
-      email: user.email || "",
+      email: user.email,
       name: user.name,
     };
     await session.save();
 
     return NextResponse.json(
-      { ok: true },
-      { status: 200, headers: response.headers }
+      { ok: true, isLoggedIn: session.isLoggedIn, user: session.user },
+      { status: 200 }
     );
   } catch (error) {
     console.log(error);

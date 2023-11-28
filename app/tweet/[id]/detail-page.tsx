@@ -4,14 +4,9 @@ import TweetProfile from "../../../components/tweet-profile";
 import Header from "../../../components/header";
 import useSWR from "swr";
 import { IResponseTweetDetail } from "../../../types/Response";
-import dateFormat from "../../../lib/dateFormat";
-import { useRequestApi } from "../../../hooks/useRequestApi";
+import dateFormat from "../../../lib/date-format";
 
 export default function DetailPage({ id }: { id: string }) {
-  const { handleApi } = useRequestApi({
-    url: `/api/tweets/${id}/heart`,
-  });
-
   const { data, isLoading, mutate } = useSWR<IResponseTweetDetail>(
     id ? `/api/tweets/${id}` : null
   );
@@ -35,7 +30,6 @@ export default function DetailPage({ id }: { id: string }) {
       },
       { revalidate: false }
     );
-    handleApi();
   };
 
   return (

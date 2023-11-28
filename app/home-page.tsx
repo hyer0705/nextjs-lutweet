@@ -1,41 +1,27 @@
 "use client";
 
 import React, { useEffect } from "react";
-import {
-  IResponseData,
-  IResponseTweets,
-  IResponseUserData,
-} from "../types/Response";
+import { IResponseTweets } from "../types/Response";
 import Logo from "../assets/Lutweet.svg";
 import TweetPost from "../components/tweet-post";
 import TweetProfile from "../components/tweet-profile";
 import Link from "next/link";
 import useSWR from "swr";
-import { useRequestApi } from "../hooks/useRequestApi";
 import { useRouter } from "next/navigation";
+import useSession from "../lib/use-session";
+import { defaultSession } from "../lib/session";
 
-export default function HomePage() {
-  const router = useRouter();
+export default function HomePage({ user }: { user: { name: string } }) {
+  const { logout } = useSession();
 
   const { data, isLoading } = useSWR<IResponseTweets>("/api/tweets");
-  const { data: userData, isLoading: isUserDataLoading } =
-    useSWR<IResponseUserData>("/api/users/check");
-  const {
-    data: logOutData,
-    handleApi,
-    isLoading: isLogOutLoading,
-  } = useRequestApi<IResponseData>({ url: "/api/users/log-out" });
 
-  const onLogoutClick = async () => {
-    if (isLogOutLoading) return;
-    await handleApi();
+  const onLogoutClick = (ev) => {
+    ev.preventDefault();
+    logout(null, {
+      optimisticData: defaultSession,
+    });
   };
-
-  useEffect(() => {
-    if (logOutData && logOutData.ok) {
-      router.replace("/log-in");
-    }
-  }, [logOutData, router]);
 
   if (isLoading) return <div />;
 
@@ -45,7 +31,7 @@ export default function HomePage() {
         <Logo className="w-48 h-24" />
 
         <div className="flex flex-col justify-center items-center">
-          <span>Hi! {isUserDataLoading ? null : userData?.user?.name}</span>
+          <span>Hi! {user?.name}</span>
           <button
             onClick={onLogoutClick}
             className="py-2 px-4 text-sm text-gray-600 font-semibold cursor-pointer"

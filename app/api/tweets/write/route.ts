@@ -1,13 +1,18 @@
 import { NextResponse } from "next/server";
 import db from "../../../../lib/db";
-import { getSession } from "../../../../lib/session";
+import { cookies } from "next/headers";
+import { getIronSession } from "iron-session";
+import { SessionData, sessionOptions } from "../../../../lib/session";
 
 export async function POST(request: Request, response: Response) {
   try {
     const { content } = await request.json();
 
     // 1. get user by session
-    const session = await getSession(request, response);
+    const session = await getIronSession<SessionData>(
+      cookies(),
+      sessionOptions
+    );
     const user = session.user;
 
     /**
