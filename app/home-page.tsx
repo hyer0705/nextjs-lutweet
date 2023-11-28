@@ -24,7 +24,7 @@ export default function HomePage() {
     });
   };
 
-  if (!isSessionLoading && !session?.ok) {
+  if (!session.ok) {
     router.replace("/create-account");
   }
 
