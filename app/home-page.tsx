@@ -24,11 +24,9 @@ export default function HomePage() {
     });
   };
 
-  useEffect(() => {
-    if (!session?.ok) {
-      router.replace("/create-account");
-    }
-  }, [session]);
+  if (!isSessionLoading && !session?.ok) {
+    router.replace("/create-account");
+  }
 
   if (isLoading && isSessionLoading) return <div />;
 
