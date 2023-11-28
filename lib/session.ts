@@ -1,16 +1,38 @@
 import {
-  IronSessionOptions,
+  // IronSessionOptions,
+  SessionOptions,
   getIronSession,
   IronSessionData,
-} from "iron-session/edge";
+} from "iron-session";
 
-export const sessionOptions: IronSessionOptions = {
+export const sessionOptions: SessionOptions = {
   password: "j4PbGWknF8sBcwQgV9MZXTRLHDphUryCJEfm",
   cookieName: "cookieLutweetAuth",
   cookieOptions: {
     secure: process.env.NODE_ENV === "production",
   },
 };
+
+export interface SessionData {
+  user: {
+    email: string;
+    name: string;
+  };
+  isLoggedIn: boolean;
+  ok?: boolean;
+}
+
+export const defaultSession: SessionData = {
+  user: {
+    email: "",
+    name: "",
+  },
+  isLoggedIn: false,
+};
+
+export function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 declare module "iron-session" {
   interface IronSessionData {

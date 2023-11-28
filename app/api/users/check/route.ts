@@ -1,20 +1,28 @@
 import { NextResponse } from "next/server";
-import { getSession } from "../../../../lib/session";
+import { cookies } from "next/headers";
+import { getIronSession } from "iron-session";
+import {
+  defaultSession,
+  sessionOptions,
+  SessionData,
+} from "../../../../lib/session";
 
 export async function GET(request: Request, response: Response) {
-  try {
-    const session = await getSession(request, response);
-    const user = session.user;
+  const session = await getIronSession<SessionData>(cookies(), sessionOptions);
 
-    if (!user) {
-      return NextResponse.json({ ok: false }, { status: 401 });
-    }
-
-    return NextResponse.json({ ok: true, user }, { status: 200 });
-  } catch (error) {
-    console.error((error as Error).message);
-    return new Response(JSON.stringify({ message: (error as Error).message }), {
-      status: 500,
-    });
+  if (!session.isLoggedIn) {
+    return NextResponse.json(
+      { ok: false, user: defaultSession },
+      { status: 401 }
+    );
   }
+
+  return NextResponse.json(
+    {
+      ok: true,
+      isLoggedIn: session.isLoggedIn,
+      user: session.user,
+    },
+    { status: 200 }
+  );
 }

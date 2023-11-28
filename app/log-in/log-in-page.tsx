@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import Logo from "../../assets/Lutweet.svg";
 import Input from "../../components/input";
@@ -8,28 +7,25 @@ import Btn from "../../components/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ILogInForm } from "../../types/Form";
-import { useRequestApi } from "../../hooks/useRequestApi";
-import { IResponseData } from "../../types/Response";
+import useSession from "../../lib/useSession";
+import { useEffect } from "react";
 
 export default function LogInPage() {
   const router = useRouter();
   const methods = useForm<ILogInForm>();
 
-  const [handleApi, { isLoading, data }] = useRequestApi<IResponseData>({
-    url: "/api/users/log-in",
-  });
+  const { session, login, isLoading } = useSession();
 
   const onValid = async (validForm: ILogInForm) => {
-    if (!isLoading) {
-      handleApi(validForm);
-    }
+    login(validForm.email, {
+      optimisticData: {
+        isLoggedIn: true,
+        user: {
+          email: validForm.email,
+        },
+      },
+    });
   };
-
-  useEffect(() => {
-    if (data?.ok) {
-      router.push("/");
-    }
-  }, [data, router]);
 
   return (
     <div>
