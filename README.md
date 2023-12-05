@@ -26,3 +26,8 @@ https://nextjs-lutweet.vercel.app/
 
 * app router 방식을 사용했으나 제대로 사용한 것이 맞는지 좀 더 공부가 필요한 것 같습니다. app router 방식은 server component 를 주로 사용하게 되어 있으나 현재 구현한 코드들은 client component를 주로 사용하여 추후에 공부한 후 변경이 필요합니다.
 * 프로젝트를 조금 늦게 시작하여 졸업 작품의 최소 요구사항만 구현한 것이 아쉽습니다. 추후에 댓글 기능, 파일 첨부하여 글 작성 기능, 테마 바꾸기(다크모드, 라이트모드) 등을 구현하고 싶습니다.
+
+## 추후 수정 사항
+
+- [2023.12.05] `/api/tweets/write` 엔드포인트 삭제 후 `/api/tweets` 엔드포인트에
+  POST Method 정의하는 것으로 게시물 업로드 api 수정
