@@ -14,7 +14,7 @@ interface IWriteForm {
 export default function WritePage() {
   const router = useRouter();
   const [handleApi, { isLoading, data }] = useRequestApi<IResponseWriteTweet>({
-    url: "/api/tweets/write",
+    url: "/api/tweets",
   });
 
   const {

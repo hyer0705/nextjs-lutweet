@@ -42,3 +42,34 @@ export async function GET(request: Request, response: Response) {
     return NextResponse.json({ ok: false }, { status: 500 });
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const { content } = await request.json();
+
+    // 1. get user by session
+    const session = await getIronSession<SessionData>(
+      cookies(),
+      sessionOptions
+    );
+    const user = session.user;
+
+    if (!user) return NextResponse.json({ ok: false }, { status: 401 });
+
+    // 2. create tweet
+    const tweet = await db.tweet.create({
+      data: {
+        content,
+        user: {
+          connect: {
+            email: user.email,
+          },
+        },
+      },
+    });
+
+    return NextResponse.json({ ok: true, tweet }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ ok: false }, { status: 500 });
+  }
+}
