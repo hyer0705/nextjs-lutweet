@@ -4,6 +4,45 @@ import { cookies } from "next/headers";
 import { getIronSession } from "iron-session";
 import { SessionData, sessionOptions } from "../../../../../lib/session";
 
+export async function GET(
+  request: Request,
+  { params: { id } }: { params: { id: string } }
+) {
+  try {
+    // select heart count
+    const heartCnt = await db.tweet.findUnique({
+      where: {
+        id: +id,
+      },
+      select: {
+        _count: {
+          select: { hearts: true },
+        },
+      },
+    });
+
+    // select heart
+    const isLiked = Boolean(
+      await db.heart.findFirst({
+        where: {
+          tweetId: +id,
+        },
+        select: {
+          id: true,
+        },
+      })
+    );
+
+    return NextResponse.json(
+      { ok: true, isLiked, heartCnt: heartCnt._count.hearts },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ ok: false }, { status: 500 });
+  }
+}
+
 export async function POST(
   request: Request,
   { params: { id } }: { params: { id: string } }

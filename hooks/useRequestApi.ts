@@ -8,7 +8,7 @@ interface UseRequestApiState<T> {
   error?: object;
 }
 
-type UseRequestApiResult<T> = [(data: any) => void, UseRequestApiState<T>];
+type UseRequestApiResult<T> = [(data?: any) => void, UseRequestApiState<T>];
 
 export const useRequestApi = <T = any>({
   url,
