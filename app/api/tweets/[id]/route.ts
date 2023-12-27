@@ -20,9 +20,6 @@ export async function GET(
         id: +id,
       },
       include: {
-        _count: {
-          select: { hearts: true },
-        },
         user: {
           select: {
             name: true,

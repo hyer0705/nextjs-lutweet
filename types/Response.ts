@@ -36,3 +36,8 @@ export interface IResponseTweetDetail extends IResponseData {
 export interface IResponseTweets extends IResponseData {
   tweets: IResponseTweetDetail["tweetDetail"][];
 }
+
+export interface IResponseHearts extends IResponseData {
+  heartCnt: number;
+  isLiked: boolean;
+}
